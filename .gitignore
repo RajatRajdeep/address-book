@@ -39,4 +39,3 @@ __pycache__/
 venv/
 
 # Application Files
-sql_app.db

@@ -6,7 +6,6 @@
 # misc
 /__pycache__
 /venv
-sql_app.db
 .DS_Store
 .vscode
 setup.cfg
