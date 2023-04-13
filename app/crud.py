@@ -51,46 +51,40 @@ def delete_address(db: Session, address_id: int):
     return None
 
 
-def get_range_of_coordinates(latitude: float, longitude: float, distance: int):
+def distance_in_km(latitude1, longitude1, latitude2, longitude2):
     # Earth's radius in kilometers
     R = 6371
 
     # Convert latitude and longitude to radians
-    latitude_rad = math.radians(latitude)
-    longitude_rad = math.radians(longitude)
+    latitude1_rad, longitude1_rad = math.radians(latitude1), math.radians(longitude1)
+    latitude2_rad, longitude2_rad = math.radians(latitude2), math.radians(longitude2)
 
-    # Convert distance from kilometers to radians
-    dist_rad = distance / R
+    # Calculate the differences in latitude and longitude
+    delta_latitude = latitude2_rad - latitude1_rad
+    delta_longitude = longitude2_rad - longitude1_rad
 
-    # Calculate minimum and maximum latitude values
-    min_latitude = math.degrees(latitude_rad - dist_rad)
-    max_latitude = math.degrees(latitude_rad + dist_rad)
-
-    # Calculate minimum and maximum longitude values
-    delta_longitude = math.asin(math.sin(dist_rad) / math.cos(latitude_rad))
-    min_longitude = math.degrees(longitude_rad - delta_longitude)
-    max_longitude = math.degrees(longitude_rad + delta_longitude)
-
-    return (
-        min_latitude,
-        max_latitude,
-        min_longitude,
-        max_longitude,
+    # Apply the Haversine formula
+    a = (
+        math.sin(delta_latitude / 2) ** 2
+        + math.cos(latitude1_rad)
+        * math.cos(latitude2_rad)
+        * math.sin(delta_longitude / 2) ** 2
     )
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+    distance = R * c
+
+    return distance
 
 
 def get_nearby_addresses(db: Session, latitude: float, longitude: float, distance: int):
-    min_latitude, max_latitude, min_longitude, max_longitude = get_range_of_coordinates(
-        latitude, longitude, distance
+    total_addresses = (
+        db.query(models.Address).filter(models.Address.is_deleted == False).all()
     )
-    return (
-        db.query(models.Address)
-        .filter(
-            models.Address.is_deleted == False,
-            min_latitude <= models.Address.latitude,
-            models.Address.latitude <= max_latitude,
-            min_longitude <= models.Address.longitude,
-            models.Address.longitude <= max_longitude,
-        )
-        .all()
-    )
+    res_addresses = []
+    for address in total_addresses:
+        if (
+            distance_in_km(latitude, longitude, address.latitude, address.longitude)
+            <= distance
+        ):
+            res_addresses.append(address)
+    return res_addresses
