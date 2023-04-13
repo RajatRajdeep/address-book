@@ -6,7 +6,11 @@ The application is live at .
 
 ## Project Structure
 
-- **app/main.py:** This file is the generic entry point and the root of our FastAPI application.
+- **app/:** This directory is FastAPI application directory.
+  - **app/main.py:** This file is the generic entry point and the root of our FastAPI application.
+  - **app/crud.py:** This file contains functions which interacts with database to perform the create, read, update, and delete operations.
+  - **app/models.py:** This file contains database models.
+  - **app/schemas.py:** This file contains Pydantic models for data validation.
 - **cloud_build/:** The cloud build directory contains GCP cloud build configuration files.
 - **.dockerignore:** .dockerignore file is used to ignore files and folders when building a Docker Image. It's similar to the .gitignore file.
 - **.gitignore:** .gitignore file specifies intentionally untracked files that Git should ignore. Files already tracked by Git are not affected.

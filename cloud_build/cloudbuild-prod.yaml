@@ -8,7 +8,7 @@ steps:
         "asia-south2-docker.pkg.dev/${PROJECT_ID}/address-book/address-book:$COMMIT_SHA",
         ".",
         "-f",
-        "Docker/Dockerfile.prod",
+        "Dockerfile.prod",
       ]
 
   # Push the container image to Container Registry
