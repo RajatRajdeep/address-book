@@ -262,7 +262,7 @@ def fetch_nearby_addresses(
     """
     try:
         logging.info("fetch_nearby_addresses method initialized.")
-        return crud.get_addresses(db, skip=0, limit=100)
+        return crud.get_nearby_addresses(db, latitude, longitude, distance)
     except Exception:
         logging.exception("Exception occurred while fetching the nearby addresses.")
         return JSONResponse(

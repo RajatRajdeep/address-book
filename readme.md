@@ -2,7 +2,7 @@
 
 Welcome to the Address Book Application! This application provides an API for managing addresses. Users can create, read, update, and delete addresses in the address book.
 It's built using [FastAPI](https://fastapi.tiangolo.com/).
-The application is live at .
+The application is live at [https://address-book-indrugcq5a-de.a.run.app/docs](https://address-book-indrugcq5a-de.a.run.app/docs).
 
 ## Project Structure
 
