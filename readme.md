@@ -2,13 +2,14 @@
 
 Welcome to the Address Book Application! This application provides an API for managing addresses. Users can create, read, update, and delete addresses in the address book.
 It's built using [FastAPI](https://fastapi.tiangolo.com/).
+The application is live at .
 
 ## Project Structure
 
-- **main.py:** This file is the generic entry point and the root of our FastAPI application.
+- **app/main.py:** This file is the generic entry point and the root of our FastAPI application.
 - **cloud_build/:** The cloud build directory contains GCP cloud build configuration files.
-- **.dockerignore:**.dockerignore file is used to ignore files and folders when building a Docker Image. It's similar to the .gitignore file.
-- **.gitignore:**.gitignore file specifies intentionally untracked files that Git should ignore. Files already tracked by Git are not affected.
+- **.dockerignore:** .dockerignore file is used to ignore files and folders when building a Docker Image. It's similar to the .gitignore file.
+- **.gitignore:** .gitignore file specifies intentionally untracked files that Git should ignore. Files already tracked by Git are not affected.
 - **requirements.txt:** This file stores information about all the libraries, modules, and packages that are used to build the project.
 
 ## Project Setup/ Installation Guide
@@ -38,7 +39,7 @@ pip3 install -r requirements.txt
 - The setup is complete! Run the FastAPI application using the below command.
 
 ```
-uvicorn main:app
+uvicorn app.main:app
 ```
 
 ## Built With

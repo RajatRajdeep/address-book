@@ -1,0 +1,14 @@
+# app directories
+/cloud_build/
+/Docker
+
+
+# misc
+/__pycache__
+/venv
+sql_app.db
+.DS_Store
+.vscode
+setup.cfg
+requirements_dev.txt
+.gitignore

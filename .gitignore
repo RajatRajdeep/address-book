@@ -34,6 +34,9 @@ Thumbs.db
 *.mov
 *.wmv
 
-# directories
+# Application Directories
 __pycache__/
 venv/
+
+# Application Files
+sql_app.db

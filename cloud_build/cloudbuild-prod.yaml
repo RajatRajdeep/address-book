@@ -1,0 +1,46 @@
+steps:
+  # Build the container image
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "asia-south2-docker.pkg.dev/${PROJECT_ID}/address-book/address-book:$COMMIT_SHA",
+        ".",
+        "-f",
+        "Docker/Dockerfile.prod",
+      ]
+
+  # Push the container image to Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "asia-south2-docker.pkg.dev/${PROJECT_ID}/address-book/address-book:$COMMIT_SHA",
+      ]
+
+  # Deploy container image to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      - "beta"
+      - "run"
+      - "deploy"
+      - "address-book"
+      - "--image"
+      - "asia-south2-docker.pkg.dev/${PROJECT_ID}/address-book/address-book:$COMMIT_SHA"
+      - "--region"
+      - "asia-east1"
+      - "--platform"
+      - "managed"
+      - "--min-instances"
+      - "0"
+      - "--max-instances"
+      - "3"
+      - "--allow-unauthenticated"
+
+# Store images in Google Artifact Registry
+images:
+  - "asia-south2-docker.pkg.dev/${PROJECT_ID}/address-book/address-book"
+
+timeout: 3600s

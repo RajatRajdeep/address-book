@@ -1,0 +1,10 @@
+FROM python:3.10.4
+RUN apt-get update
+
+WORKDIR /address-book
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade -r /address-book/requirements.txt
+COPY . .
+
+# Uvicorn deployment: https://www.uvicorn.org/deployment/
+CMD exec uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 4
